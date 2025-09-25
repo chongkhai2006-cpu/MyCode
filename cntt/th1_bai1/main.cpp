@@ -34,4 +34,4 @@ cout<<"Ma chat luong:"<<mh.machatluong;
 cout<<"\n";
 cout<<"So luong:"<<mh.soluong;
 cout<<"\n";
-} //helloo
+} 
