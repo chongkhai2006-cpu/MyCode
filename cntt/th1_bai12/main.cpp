@@ -1,83 +1,66 @@
 #include <bits/stdc++.h>
 using namespace std;
-int t;
-int a[8];
-int s[7];
-int sum = 0, x;
-bool ch;
-int u, v, w;
-
-void si(int k, int n)
-{
-    for(int i = 0; i <= 9; i ++)
-    {
-        s[k] = i;
-        sum += i;
-        if(k == n)
-        {
-           ch = 1;
-           for(int j = 1; j <= 3; j ++)
-           {
-               if(s[j] != s[6 - j + 1])
-               {
-                   ch = 0;
-                   break;
-               }
-           }
-           if(ch)
-           {
-               a[3] ++;
-               x = sum;
-               if(x % 10 == 0)
-               {
-                   a[2] ++;
-                   ch = 1;
-                   for(int j = 1; j <= 6; j ++)
-                   {
-                       if(s[j] == 0)
-                       {
-                           ch = 0;
-                           break;
-                       }
-                   }
-                   if(ch) a[1] ++;
-               }
-           }
+bool kiemtraloai3(string so) {
+    for (int i = 0; i < 3; i++) {
+        if (so[i] != so[5 - i]) {
+            return false;
         }
-        else si(k + 1, n);
-        sum -= i;
     }
+    return true;
 }
-
-int main()
-{
-    ios_base::sync_with_stdio(0);
-    cin.tie(0);
-    cout.tie(0);
-    //freopen("Lamle.INP","r", stdin);
-    //freopen("Lamle.OUT","w", stdout);
-    memset(a, 0, sizeof a);
-    si(1, 6);
-    //cout << a[1] << " " << a[2] << " " << a[3] << '\n';
-    cin >> t;
-    while(t --)
-    {
-        cin >> u >> v >> w;
-        if(u > a[1])
-        {
-            cout << "NO" << '\n';
-            continue;
-        }
-        if(a[2] - a[1] < v)
-        {
-            cout << "NO" << '\n';
-            continue;
-        }
-        if(a[3] - a[2] - a[1] < w)
-        {
-            cout << "NO" << '\n';
-            continue;
-        }
-        cout << "YES" << '\n';
+bool kiemtraloai2(string so) {
+    int tong = 0;
+    for (int i = 0; i < 6; i++) {
+        tong += (so[i] - '0');
     }
+    return (tong % 10 == 0);
+}
+bool kiemtraloai1(string so) {
+    for (int i = 0; i < 6; i++) {
+        if (so[i] == '0') {
+            return false;
+        }
+    }
+    return true;
+}
+int main() {
+    int demloai1 = 0, demloai2 = 0, demloai3 = 0;
+    for (long long i = 000000; i <= 999999; i++) {
+        string so = to_string(i);
+        while (so.length() < 6) {
+            so = "0" + so;
+        }
+        if (kiemtraloai3(so)) {
+            demloai3++;
+            if (kiemtraloai2(so)) {
+                demloai2++;
+                if (kiemtraloai1(so)) {
+                    demloai1++;
+                }
+            }
+        }
+    }
+    cout<<demloai1<<"\n"<<demloai2<<"\n"<<demloai3<<"\n";
+    int n;
+    cin >> n;
+    for (int i = 0; i < n; i++) {
+        int N, M, K;
+        cin >> N >> M >> K;
+        if (N > demloai1) {
+            cout << "NO\n";
+            continue;
+        }
+        int loai2_con_lai = demloai2 - N;
+        if (M > loai2_con_lai) {
+            cout << "NO\n";
+            continue;
+        }
+        int loai3_con_lai = demloai3 - (N + M);
+        if (K > loai3_con_lai) {
+            cout << "NO\n";
+            continue;
+        }
+        cout << "YES\n";
+    }
+    return 0;
 }
