@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1762675489 source:d:\monktlt\baiham\ctdl_bai7\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
